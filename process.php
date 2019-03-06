@@ -31,8 +31,8 @@ if (isset($_GET['delete'])){
     $_SESSION['message'] = "Record have been deleted";
     $_SESSION['msg_type'] = "danger";
     
-
-    header('location:index.php');
+    //when there is a $_GET we do not use header because the message in session is not displayed
+    // header('location:index.php');
 
 }
 
@@ -51,7 +51,7 @@ if (isset($_GET['edit'])){
     }
 }
 
-if (isset($_POST['id'])){
+if (isset($_POST['update'])){
     $id = $_POST['id'];
     $name = $_POST['name'];
     $location = $_POST['location']; 
