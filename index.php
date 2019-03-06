@@ -66,6 +66,7 @@
                             if ($update==TRUE):
                         ?>
                         <button type="submit" name="update" class="btn btn-info">Update</button>
+                        <a href ="index.php" class="btn btn-primary" >Back</a>
                             <?php  else: ?>
                         <button type="submit" name="save" class="btn btn-primary">Save</button>
                         <?php endif ?>
