@@ -1,18 +1,28 @@
 <?php
 session_start();
 
-$mysql = new mysqli('localhost', 'root', '', 'crud') or die(mysqli_error($mysql));
+$mysql = new mysqli('localhost', 'root', '', 'loty') or die(mysqli_error($mysql));
 
 $id = 0;
 $update = FALSE;
 $name = '';
-$location = '';
+$surname = '';
+$sex = '';
+$country = '';
+$notes = '';
+$birth = '';
+$flylist = '';
 //when button save is click and there is something in both inputs do a query
 if (isset($_POST['save'])){
     $name = $_POST['name'];
-    $location = $_POST['location'];    
+    $surname = $_POST['surname'];    
+    $sex = $_POST['sex'];    
+    $country = $_POST['country'];    
+    $notes = $_POST['notes'];    
+    $birth = $_POST['birth'];    
+    $flylist = $_POST['flylist'];    
     
-    $mysql->query("INSERT INTO data (name, location) VALUES('$name', '$location')") or 
+    $mysql->query("INSERT INTO turist (name, surname, sex, country, notes, birth, flylist ) VALUES('$name', '$surname', '$sex', '$country', '$notes', '$birth', '$flylist' )") or 
             die($mysql->error());
     //session only when insert     
     $_SESSION['message'] = "Record have been saved";
@@ -25,7 +35,7 @@ if (isset($_POST['save'])){
 if (isset($_GET['delete'])){
     $id = $_GET['delete'];   
 
-    $mysql->query("DELETE FROM data WHERE id = $id") or 
+    $mysql->query("DELETE FROM turist WHERE id = $id") or 
             die($mysql->error());
     //session only when delete
     $_SESSION['message'] = "Record have been deleted";
@@ -40,23 +50,33 @@ if (isset($_GET['edit'])){
     $id = $_GET['edit'];
     $update = TRUE;
 
-    $result = $mysql->query("SELECT * FROM data WHERE id = $id") or die($mysql->error());
+    $result = $mysql->query("SELECT * FROM turist WHERE id = $id") or die($mysql->error());
 
         //code below works only if there is a 1 record in the base, otherwise if there is't a record it wont work 
     if ($result->num_rows==1){
         //fetch_array() returns one array with both numeric keys, and associative strings
         $row = $result->fetch_array();
         $name = $row['name'];
-        $location = $row['location'];
+        $surname = $row['surname'];    
+        $sex = $row['sex'];    
+        $country = $row['country'];    
+        $notes = $row['notes'];    
+        $birth = $row['birth'];    
+        $flylist = $row['flylist'];
     }
 }
 
 if (isset($_POST['update'])){
     $id = $_POST['id'];
     $name = $_POST['name'];
-    $location = $_POST['location']; 
+    $surname = $_POST['surname'];    
+    $sex = $_POST['sex'];    
+    $country = $_POST['country'];    
+    $notes = $_POST['notes'];    
+    $birth = $_POST['birth'];    
+    $flylist = $_POST['flylist'];
 
-    $result = $mysql->query("UPDATE data SET name='$name', location='$location' WHERE id='$id'") or die($mysql->error());
+    $result = $mysql->query("UPDATE turist SET name='$name', surname='$surname', sex='$sex' country='$country', notes='$notes', birth='$birth', flylist='$flylist' WHERE id='$id'") or die($mysql->error());
 
     $_SESSION['message'] = "Record has been updated";
     $_SESSION['msg_type'] = "warning";
